@@ -1,0 +1,27 @@
+{
+ "add_total_row": 0, 
+ "apply_user_permissions": 1, 
+ "creation": "2017-12-22 14:44:04.445402", 
+ "disabled": 0, 
+ "docstatus": 0, 
+ "doctype": "Report", 
+ "idx": 0, 
+ "is_standard": "Yes", 
+ "modified": "2017-12-22 15:07:32.425565", 
+ "modified_by": "Administrator", 
+ "module": "Preorder", 
+ "name": "Delivery Serial Number", 
+ "owner": "Administrator", 
+ "query": "select \n\tdn.delivery_date as \"Tanggal Kirim:Date:100\",\n\tdn.`name` as \"Delivery Order:Link/Delivery Note:120\",\n\tdn.customer_name as \"Customer:Data:150\",\n\tdni.serial_number as \"Serial Number:Data:150\",\n\tdni.qty as \"Qty:Float:60\",\n\tdni.uom as \"UOM:Link/UOM:80\",\n\tdn.courier as \"Pengirim:Data:100\"\nfrom `tabDelivery Note Item` dni \ninner join `tabDelivery Note` dn on dn.`name` = dni.parent\nwhere dn.docstatus != '2' and dni.serial_number is not null\norder by dn.`name` asc", 
+ "ref_doctype": "Delivery Note", 
+ "report_name": "Delivery Serial Number", 
+ "report_type": "Query Report", 
+ "roles": [
+  {
+   "role": "Administrator"
+  }, 
+  {
+   "role": "All"
+  }
+ ]
+}
