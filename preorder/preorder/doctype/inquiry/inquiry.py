@@ -9,10 +9,6 @@ from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
 
 class Inquiry(Document):
-	def check_item_table(self):
-		if not self.get('items'):
-			frappe.msgprint(_("Please enter item details"))
-
 	def validate(self):
 		yes = 0
 		for row in self.items:
@@ -30,19 +26,9 @@ class Inquiry(Document):
 		self.insert_to_all_item()
 		self.reset_total()
 
-	def before_cancel(self):
-		self.delete_all_item()
-
-	def on_cancel(self):
-		frappe.db.set(self, 'status', 'Cancelled')
-
-	def declare_order_lost(self, arg):
-		frappe.db.set(self, 'status', 'Lost')
-		frappe.db.set(self, 'order_lost_reason', arg)
-
-	def reset_total(self):
-		frappe.db.set(self, 'total_invoice', 0)
-		frappe.db.set(self, 'total_expense', 0)
+	def check_item_table(self):
+		if not self.get('items'):
+			frappe.msgprint(_("Please enter item details"))
 
 	def check_assembly_item(self):
 		exist = 0
@@ -75,12 +61,6 @@ class Inquiry(Document):
 		else:
 			frappe.db.set(self, 'reff_item', 0)
 
-	def update_inquiry_item(self):
-		for row in self.items:
-			product_assembly = frappe.db.get_value("Product Assembly", {"inquiry_item": row.name}, "name")
-			if product_assembly:
-				frappe.db.sql("""update `tabInquiry Item` set product_assembly = %s where `name` = %s""", (product_assembly, row.name))
-
 	def insert_to_all_item(self):
 		no = 0
 		frappe.db.sql("""delete from `tabInquiry All Item` where `parent` = %s""", self.name)
@@ -98,6 +78,26 @@ class Inquiry(Document):
 					"uom": row.uom
 				})
 				items.insert()
+
+	def reset_total(self):
+		frappe.db.set(self, 'total_invoice', 0)
+		frappe.db.set(self, 'total_expense', 0)
+
+	def before_cancel(self):
+		self.delete_all_item()
+
+	def on_cancel(self):
+		frappe.db.set(self, 'status', 'Cancelled')
+
+	def declare_order_lost(self, arg):
+		frappe.db.set(self, 'status', 'Lost')
+		frappe.db.set(self, 'order_lost_reason', arg)
+
+	def update_inquiry_item(self):
+		for row in self.items:
+			product_assembly = frappe.db.get_value("Product Assembly", {"inquiry_item": row.name}, "name")
+			if product_assembly:
+				frappe.db.sql("""update `tabInquiry Item` set product_assembly = %s where `name` = %s""", (product_assembly, row.name))
 
 	def delete_all_item(self):
 		frappe.db.sql("""delete from `tabInquiry All Item` where `parent` = %s""", self.name)

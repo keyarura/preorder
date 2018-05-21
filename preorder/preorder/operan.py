@@ -497,7 +497,7 @@ def cancel_sales_invoice_4(doc, method):
         for inq in inquiry:
             aa = frappe.db.sql("""select * from `tabSales Invoice Item` where inquiry = %s and docstatus = '1'""", inq.inquiry, as_dict=1)
             for ab in aa:
-                frappe.db.sql("""update `tabSales Invoice Item` set expense_amount = null where `name` = %s""", ab.name)
+                frappe.db.sql("""update `tabSales Invoice Item` set expense_amount = '0' where `name` = %s""", ab.name)
 
 def cancel_sales_invoice_5(doc, method):
     temp = []
