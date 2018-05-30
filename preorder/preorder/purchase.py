@@ -28,7 +28,7 @@ def make_purchase_order(source_name, target_doc=None):
 			"validation": {
 				"docstatus": ["=", 1],
 			},
-			"field_no_map":["currency", "conversion_rate", "shipping_address", "contact_person", "address_display", "base_discount_amount", "multilevel_discount_percentage", "additional_discount_percentage", "discount_amount"]
+			"field_no_map":["currency", "conversion_rate", "shipping_address", "contact_person", "address_display", "base_discount_amount", "multilevel_discount_percentage", "additional_discount_percentage", "discount_amount", "base_rounded_total", "rounded_total"]
 		},
 		"Sales Order Item": {
 			"doctype": "Purchase Order Item",

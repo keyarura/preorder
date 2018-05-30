@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-__version__ = '1.0.122'
+__version__ = '1.0.123'
 
+#1.0.123:
+#   - Update script: Purchase Order
+#   - Update customize: Delivery Note Item
 #1.0.122:
 #   - Update report: Net Profit
 #1.0.121:
