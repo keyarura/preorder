@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-__version__ = '1.0.123'
+__version__ = '1.0.124'
 
+#1.0.124:
+#   - Update on_submit: Quotation
 #1.0.123:
 #   - Update script: Purchase Order
 #   - Update customize: Delivery Note Item

@@ -92,10 +92,11 @@ def submit_quotation_4(doc, method):
         temp = []
         items = frappe.db.sql("""select item_description from `tabQuotation Item` where parent = %s and is_product_assembly = '1'""", doc.name, as_dict=1)
         for ab in items:
-            temp.append(ab.item_description)
+            temp.append("*-"+ab.item_description+"*-")
 
         descr = ', '.join(temp)
-        frappe.db.sql("""delete from `tabQuotation Assembly Item` where parent = %s and parent_item not in (%s)""", (doc.name, descr))
+        rese = descr.replace("*-", "'")
+        frappe.db.sql("delete from `tabQuotation Assembly Item` where parent = %s and parent_item not in ("+rese+")", doc.name)
 
 def cancel_quotation(doc, method):
     for row in doc.items:
