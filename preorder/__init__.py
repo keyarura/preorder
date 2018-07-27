@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-__version__ = '1.0.124'
+__version__ = '1.0.125'
 
+#1.0.125:
+#   - Add with_reference in Journal Entry
+#   - Update submit_journal_entry_3
 #1.0.124:
 #   - Update on_submit: Quotation
 #1.0.123:

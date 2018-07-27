@@ -567,10 +567,11 @@ def submit_journal_entry_2(doc, method):
 
 def submit_journal_entry_3(doc, method):
     if doc.voucher_type == "Debit Note" or doc.voucher_type == "Credit Note":
-        for row in doc.accounts:
-            if row.party:
-                if row.reference_type == None or row.reference_name == None:
-                    frappe.throw(_("<b>Reference Type</b> and <b>Reference Name</b> are required for row no "+str(row.idx)))
+        if doc.with_reference == 1:
+            for row in doc.accounts:
+                if row.party:
+                    if row.reference_type == None or row.reference_name == None:
+                        frappe.throw(_("<b>Reference Type</b> and <b>Reference Name</b> are required for row no "+str(row.idx)))
 
 def cancel_journal_entry(doc, method):
     if doc.delivery_note:
